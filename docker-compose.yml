@@ -15,5 +15,5 @@ services:
         ports:
             - 5432:5432
         volumes:
-            - ./build/db:/var/lib/postgresql/data
             - ./src/db/users_schema.sql:/docker-entrypoint-initdb.d/users_schema.sql
+            - ./build/db:/var/lib/postgresql/data

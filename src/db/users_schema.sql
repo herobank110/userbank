@@ -1,7 +1,7 @@
 Create table users (
-    id SERIAL PRIMARY KEY,
-    first_name VARCHAR(50),
-    last_name VARCHAR(50),
-    email VARCHAR(100),
-    phone_num CHAR(13)
+    id serial primary key,
+    first_name text,
+    last_name text,
+    email text,
+    phone_num char(13)
 );

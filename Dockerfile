@@ -2,4 +2,5 @@ FROM python:3.9-slim
 WORKDIR /app
 COPY . .
 RUN pip install -r requirements.txt
-CMD ["python", "src/app/main.py"]
+ENV FLASK_APP=userbank
+CMD ["flask", "run"]

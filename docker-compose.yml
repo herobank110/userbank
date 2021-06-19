@@ -3,7 +3,7 @@ services:
     app:
         build: .
         ports:
-            - 8080:8080
+            - 5000:5000
         environment:
             FLASK_ENV: development
         volumes:
@@ -17,5 +17,5 @@ services:
         ports:
             - 5432:5432
         volumes:
-            - ./src/db/users_schema.sql:/docker-entrypoint-initdb.d/users_schema.sql
+            - ./db/users_schema.sql:/docker-entrypoint-initdb.d/users_schema.sql
             - ./build/db:/var/lib/postgresql/data

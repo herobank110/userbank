@@ -81,9 +81,9 @@ matching the schema below:
     phoneNum?: string
 }
 ```
-These fields are otherwise validated against the same criteria as the
-[POST /api/user](#post-apiuser) route. Notably in this case all fields
-are optional, however at least one field must be defined.
+Note that all fields are optional. However to pass validation at least
+one field must be defined. All present fields are otherwise validated
+against the same criteria as the [POST /api/user](#post-apiuser) route.
 
 The response has a status code 200 and no body if successful. In case of
 validation failure (including `<id>` not being a positive integer) a

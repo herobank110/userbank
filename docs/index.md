@@ -5,7 +5,7 @@
 - [GET /api/user](#get-apiuser)
 - [POST /api/user](#post-apiuser)
 - [GET /api/user/\<id\>](#get-apiuserid)
-- [UPDATE /api/user/\<id\>](#update-apiuserid)
+- [PUT /api/user/\<id\>](#put-apiuserid)
 - [DELETE /api/user/\<id\>](#delete-apiuserid)
 
 ### GET /api/user
@@ -66,7 +66,7 @@ If the `<id>` is not a positive integer the response has status code
 400 and no body. If there was a database error, such as no user by that
 ID exists, the status code is 500.
 
-### UPDATE /api/user/\<id\>
+### PUT /api/user/\<id\>
 
 Updates fields for a particular user.
 

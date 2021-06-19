@@ -4,7 +4,7 @@ import psycopg2
 app = Flask(__name__)
 
 
-@app.route('/hi')
+@app.route('/hey')
 def hi():
     return jsonify({'a': 2, 'b': 'hello'})
 

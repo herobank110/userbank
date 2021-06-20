@@ -1,22 +1,48 @@
-from typing import Union
+from typing import List, Union
 from userbank import db_connection
 from userbank.model import PostUser
 
 
-def _query(format: str, *args: Union[str, int, float]):
+def _query(query: str, *args: Union[str, int, float]):
     """Internal implementation for database queries.
 
-    :param format: Format string, may contain %s, %d etc.
-    :param args: Values for placeholders in `format`, if any.
+    :param query: Format string, may contain %s, %d etc.
+    :param args: Values for placeholders in `query`, if any.
     :return: Whether the query was successful.
     """
     try:
-        conn = db_connection()
-        with conn, conn.cursor() as cur:
-            cur.execute(format, args)
+        connection = db_connection()
+        with connection, connection.cursor() as cursor:
+            cursor.execute(query, args)
     except:
         return False
     return True
+
+
+def _query_fetch(query: str, *args: Union[str, int, float]):
+    """Database query that retrieves rows.
+
+    :param query: Format string, may contain %s, %d etc.
+    :param args: Values for placeholders in `query`, if any.
+    :return: Rows from the database, otherwise None.
+    """
+    try:
+        connection = db_connection()
+        with connection, connection.cursor() as cursor:
+            cursor.execute(query, args)
+            # Yielding the cursor here would fail. It would be closed
+            # even while in this context!
+            return cursor.fetchall()
+    except:
+        return
+
+
+def get_all_user_ids() -> Union[List[int], None]:
+    """:returns: List of ID of all users in database, or None if query
+    failed.
+    """
+    if rows := _query_fetch("Select id from users;"):
+        return [row[0] for row in rows]
 
 
 def add_user(user: PostUser):

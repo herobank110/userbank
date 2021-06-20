@@ -1,5 +1,6 @@
-from flask.wrappers import Request
 import re
+from flask.wrappers import Request
+from userbank.model import PostUser
 
 email_regex = re.compile('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
 phone_num_regex = re.compile('^[+0-9][0-9]{10,12}$')
@@ -42,3 +43,11 @@ def is_valid_post_user(req: Request) -> bool:
             and req.json.get('lastName') is not None
             and req.json.get('email') is not None
             and req.json.get('phoneNum') is not None)
+
+
+def make_post_user(req: Request):
+    return (is_valid_post_user(req)
+            and PostUser(req.json.get('firstName'),
+                         req.json.get('lastName'),
+                         req.json.get('email'),
+                         req.json.get('phoneNum')))

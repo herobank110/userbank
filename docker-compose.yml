@@ -1,21 +1,24 @@
 version: '3'
 services:
-    app:
-        build: .
+    app_main:
+        build:
+            context: .
+            dockerfile: docker/app_main.Dockerfile
         ports:
-            - 5000:5000
-        environment:
-            FLASK_ENV: development
+            - 3001:3001
+        volumes:
+            - .:/app
+    app_test:
+        build:
+            context: .
+            dockerfile: docker/app_test.Dockerfile
         volumes:
             - .:/app
     db:
-        image: postgres:13-alpine
-        environment:
-            POSTGRES_DB: Users
-            POSTGRES_USER: docker
-            POSTGRES_PASSWORD: hahaha123
+        build:
+            context: .
+            dockerfile: docker/db.Dockerfile
         ports:
             - 5432:5432
         volumes:
-            - ./db/users_schema.sql:/docker-entrypoint-initdb.d/users_schema.sql
             - ./build/db:/var/lib/postgresql/data

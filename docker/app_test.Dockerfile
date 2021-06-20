@@ -1,6 +1,5 @@
 FROM python:3.9-slim
 WORKDIR /app
-COPY . .
+COPY requirements.txt .
 RUN pip install -r requirements.txt
-ENV FLASK_APP=userbank
-CMD ["flask", "run"]
+CMD ["python", "-m", "pytest"]

@@ -1,6 +1,6 @@
 from typing import List, Union
 from userbank import db_connection
-from userbank.model import PostUser
+from userbank.model import UserRecord, PostUser
 
 
 def _query(query: str, *args: Union[str, int, float]):
@@ -27,7 +27,7 @@ def _query_fetch(query: str, *args: Union[str, int, float]):
     :return: Rows from the database, otherwise None.
     """
     if 1:
-    # try:
+        # try:
         connection = db_connection()
         with connection, connection.cursor() as cursor:
             cursor.execute(query, args)
@@ -50,11 +50,12 @@ def get_user_by_id(id_: int):
     """:returns: List of ID of all users in database, or None if query
     failed.
     """
-    if rows := _query_fetch("Select first_name, last_name, email, phone_num "
+    if rows := _query_fetch("Select id, first_name, last_name, email, phone_num "
                             "from users where id = %s;",
                             id_):
         # Zero length array is falsy.
-        return PostUser(*(col.strip() for col in rows[0]))
+        return UserRecord(rows[0][0], rows[0][1], rows[0][2], rows[0][3],
+                          rows[0][4].strip())
 
 
 def add_user(user: PostUser):

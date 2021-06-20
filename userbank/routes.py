@@ -29,6 +29,7 @@ def get_api_user_id(id_: str):
     if not (user := get_user_by_id(id_int)):
         return Response('database error', 500)
     res: Response = jsonify({
+        "id": user.id_,
         "firstName": user.first_name,
         "lastName": user.last_name,
         "email": user.email,

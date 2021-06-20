@@ -55,6 +55,7 @@ the user record to retrieve. If all is well the response has status
 code 200 and a JSON body matching the schema below:
 ```typescript
 {
+    id: number,
     firstName: string,
     lastName: string,
     email: string,

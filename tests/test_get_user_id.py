@@ -8,7 +8,8 @@ def test_get_user_id_valid(client: FlaskClient):
     # TODO: use mock database to have more test cases
     if res.status_code == 200:
         assert res.is_json
-        assert len(res.json) == 4
+        assert len(res.json) == 5
+        assert type(res.json['id']) == int
         assert type(res.json['firstName']) == str
         assert type(res.json['lastName']) == str
         assert type(res.json['email']) == str

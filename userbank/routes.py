@@ -32,18 +32,3 @@ def post_api_user():
     except:
         return Response("database error", 500)
     return Response(None, 200)
-
-# @app.route('/api/user/<id>')
-# def get_hi_id(id):
-#     print('hi')
-#     res: Response = jsonify(a=3, echo=id)
-#     res.status_code = 200
-#     return res
-
-
-# @app.route('/hi', methods=["POST"])
-# def post_hi():
-#     print('json', request.json)
-#     res = Response()
-#     res.status_code = 69
-#     return res

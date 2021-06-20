@@ -11,12 +11,19 @@ services:
             - 3001:3001
         volumes:
             - .:/app
+        depends_on:
+            - db
     app_test:
         build:
             context: .
             dockerfile: docker/app_test.Dockerfile
+        networks:
+            usernet:
+                ipv4_address: "172.10.10.3"
         volumes:
             - .:/app
+        depends_on:
+            - db
     db:
         build:
             context: .

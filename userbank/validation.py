@@ -1,6 +1,6 @@
 import re
 from flask.wrappers import Request
-from userbank.model import NewUserRecord
+from userbank.model import NewUserRecord, UpdateUserRecord
 
 email_regex = re.compile('^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$')
 phone_num_regex = re.compile('^[+0-9][0-9]{10,12}$')
@@ -45,12 +45,13 @@ def is_valid_post_user(req: Request) -> bool:
             and req.json.get('phoneNum') is not None)
 
 
-def make_post_user(req: Request):
+def make_new_user_record(req: Request):
     return (is_valid_post_user(req)
             and NewUserRecord(req.json.get('firstName'),
                               req.json.get('lastName'),
                               req.json.get('email'),
-                              req.json.get('phoneNum'))) or None
+                              req.json.get('phoneNum'))
+            or None)
 
 
 def make_user_id(id_: str):
@@ -63,3 +64,20 @@ def make_user_id(id_: str):
             return id_int
     except:
         return
+
+
+def make_update_user_record(id_: int, req: Request):
+    # if (id_int := make_user_id(id_)) and is_valid_put_user(req):
+    #     return UpdateUserRecord(id_int,
+    #                             req.json.get('firstName'),
+    #                             req.json.get('lastName'),
+    #                             req.json.get('email'),
+    #                             req.json.get('phoneNum'))
+    return ((id_int := make_user_id(id_))
+            and is_valid_put_user(req)
+            and UpdateUserRecord(id_int,
+                                 req.json.get('firstName'),
+                                 req.json.get('lastName'),
+                                 req.json.get('email'),
+                                 req.json.get('phoneNum'))
+            or None)

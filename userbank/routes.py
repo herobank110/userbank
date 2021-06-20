@@ -1,7 +1,7 @@
 from userbank.db_access import add_user, delete_user, get_all_user_ids, get_user_by_id
 from flask import Response, jsonify, request
 from userbank import app
-from userbank.validation import make_post_user, make_user_id
+from userbank.validation import make_new_user_record, make_update_user_record, make_user_id
 
 
 @app.route('/api/user')
@@ -15,7 +15,7 @@ def get_api_user():
 
 @app.route('/api/user', methods=["POST"])
 def post_api_user():
-    if not (user := make_post_user(request)):
+    if not (user := make_new_user_record(request)):
         return Response('validation failure', 400)
     if not add_user(user):
         return Response('database error', 500)
@@ -37,6 +37,15 @@ def get_api_user_id(id_: str):
     })
     res.status_code = 200
     return res
+
+
+@app.route('/api/user/<id_>', methods=['PUT'])
+def put_api_user_id(id_: str):
+    if not (user := make_update_user_record(id_, request)):
+        return Response('validation failure', 400)
+    # if not update_user(user):
+    #     return Response('database error', 500)
+    return Response(None, 200)
 
 
 @app.route('/api/user/<id_>', methods=['DELETE'])

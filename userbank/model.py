@@ -1,3 +1,4 @@
+from typing import Union
 from userbank.utils.struct import ctor
 
 
@@ -9,6 +10,17 @@ class NewUserRecord:
     last_name = ""
     email = ""
     phone_num = ""
+
+
+@ctor.init_list
+class UpdateUserRecord:
+    """User details to update existing user in database with.
+    """
+    id_ = 1
+    first_name: Union[str, None] = None
+    last_name: Union[str, None] = None
+    email: Union[str, None] = None
+    phone_num: Union[str, None] = None
 
 
 @ctor.init_list

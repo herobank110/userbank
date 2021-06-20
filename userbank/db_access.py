@@ -1,6 +1,6 @@
 from typing import List, Union
 from userbank import db_connection
-from userbank.model import UserRecord, NewUserRecord
+from userbank.model import UpdateUserRecord, UserRecord, NewUserRecord
 
 
 def _query(query: str, *args: Union[str, int, float]):
@@ -66,6 +66,24 @@ def add_user(user: NewUserRecord):
     return _query("Insert into users (first_name, last_name, email, phone_num) "
                   "values (%s, %s, %s, %s);",
                   user.first_name, user.last_name, user.email, user.phone_num)
+
+
+def update_user(user: UpdateUserRecord):
+    """Update a user record.
+
+    :param user: Details about user to update.
+    :return: Whether the update was successful.
+    """
+    return _query("Update users "
+                  + ", ".join(filter(None,
+                                     (user.first_name and 'set first_name = %s',
+                                      user.last_name and 'set last_name = %s',
+                                      user.email and 'set email = %s',
+                                      user.phone_num and 'set phone_num = %s')))
+                  + "where id = %s;",
+                  *filter(None, (user.first_name, user.last_name,
+                                 user.email, user.phone_num)),
+                  user.id_)
 
 
 def delete_user(id_: int):

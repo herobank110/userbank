@@ -1,4 +1,4 @@
-from userbank.db_access import add_user, delete_user, get_all_user_ids, get_user_by_id
+from userbank.db_access import add_user, delete_user, get_all_user_ids, get_user_by_id, update_user
 from flask import Response, jsonify, request
 from userbank import app
 from userbank.validation import make_new_user_record, make_update_user_record, make_user_id
@@ -43,8 +43,8 @@ def get_api_user_id(id_: str):
 def put_api_user_id(id_: str):
     if not (user := make_update_user_record(id_, request)):
         return Response('validation failure', 400)
-    # if not update_user(user):
-    #     return Response('database error', 500)
+    if not update_user(user):
+        return Response('database error', 500)
     return Response(None, 200)
 
 

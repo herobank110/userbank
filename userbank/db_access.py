@@ -14,7 +14,6 @@ def _query(format: str, *args: Union[str, int, float]):
         conn = db_connection()
         with conn, conn.cursor() as cur:
             cur.execute(format, args)
-            yield cur
     except:
         return False
     return True
@@ -26,7 +25,6 @@ def add_user(user: PostUser):
     :param user: Data of user to create. ID is automatically generated.
     :return: Whether the insertion was made.
     """
-    cur = _query("Insert into users (first_name, last_name, email, phone_num) "
-                 "values (%s, %s, %s, %s);",
-                 user.first_name, user.last_name, user.email, user.phone_num)
-    return next(cur, False)
+    return _query("Insert into users (first_name, last_name, email, phone_num) "
+                  "values (%s, %s, %s, %s);",
+                  user.first_name, user.last_name, user.email, user.phone_num)

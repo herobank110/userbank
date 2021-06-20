@@ -67,12 +67,6 @@ def make_user_id(id_: str):
 
 
 def make_update_user_record(id_: int, req: Request):
-    # if (id_int := make_user_id(id_)) and is_valid_put_user(req):
-    #     return UpdateUserRecord(id_int,
-    #                             req.json.get('firstName'),
-    #                             req.json.get('lastName'),
-    #                             req.json.get('email'),
-    #                             req.json.get('phoneNum'))
     return ((id_int := make_user_id(id_))
             and is_valid_put_user(req)
             and UpdateUserRecord(id_int,

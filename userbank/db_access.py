@@ -26,16 +26,15 @@ def _query_fetch(query: str, *args: Union[str, int, float]):
     :param args: Values for placeholders in `query`, if any.
     :return: Rows from the database, otherwise None.
     """
-    if 1:
-        # try:
+    try:
         connection = db_connection()
         with connection, connection.cursor() as cursor:
             cursor.execute(query, args)
             # Yielding the cursor here would fail. It would be closed
             # even while in this context!
             return cursor.fetchall()
-    # except:
-    #     return
+    except:
+        return
 
 
 def get_all_user_ids() -> Union[List[int], None]:

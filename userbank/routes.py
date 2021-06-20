@@ -1,6 +1,5 @@
 from flask import Response, jsonify, request
-from userbank import app
-from userbank.db_connection import db_connection
+from userbank import app, db_connection
 from userbank.validation import make_post_user
 
 

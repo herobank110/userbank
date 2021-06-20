@@ -1,21 +1,8 @@
-"""
-All tests will be done in an isolated flask test client but the live
-database will be used.
-"""
-
 from flask.testing import FlaskClient
 from flask.wrappers import Response
 
 
-def test_get_api_user(client: FlaskClient):
-    res: Response = client.get('/api/user')
-    assert res.status_code == 200
-    assert res.is_json
-    assert len(res.json) == 1
-    assert type(res.json['users']) == list
-
-
-def test_post_api_user_valid(client: FlaskClient):
+def test_post_user_valid(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "firstName": "John",
         "lastName": "Smith",
@@ -25,7 +12,7 @@ def test_post_api_user_valid(client: FlaskClient):
     assert res.status_code == 200
 
 
-def test_post_api_user_missing_field(client: FlaskClient):
+def test_post_user_missing_field(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "lastName": "Smith",
         "phoneNum": "01234567890"
@@ -33,7 +20,7 @@ def test_post_api_user_missing_field(client: FlaskClient):
     assert res.status_code == 400
 
 
-def test_post_api_user_wrong_type(client: FlaskClient):
+def test_post_user_wrong_type(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "firstName": "John",
         "lastName": 23,
@@ -43,7 +30,7 @@ def test_post_api_user_wrong_type(client: FlaskClient):
     assert res.status_code == 400
 
 
-def test_post_api_user_first_name_empty(client: FlaskClient):
+def test_post_user_first_name_empty(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "firstName": "",
         "lastName": "Smith",
@@ -53,7 +40,7 @@ def test_post_api_user_first_name_empty(client: FlaskClient):
     assert res.status_code == 400
 
 
-def test_post_api_user_last_name_empty(client: FlaskClient):
+def test_post_user_last_name_empty(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "firstName": "John",
         "lastName": "",
@@ -63,7 +50,7 @@ def test_post_api_user_last_name_empty(client: FlaskClient):
     assert res.status_code == 400
 
 
-def test_post_api_user_email_wrong_pattern(client: FlaskClient):
+def test_post_user_email_wrong_pattern(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "firstName": "John",
         "lastName": "Smith",
@@ -73,7 +60,7 @@ def test_post_api_user_email_wrong_pattern(client: FlaskClient):
     assert res.status_code == 400
 
 
-def test_post_api_user_phone_too_long(client: FlaskClient):
+def test_post_user_phone_too_long(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "firstName": "John",
         "lastName": "Smith",
@@ -83,7 +70,7 @@ def test_post_api_user_phone_too_long(client: FlaskClient):
     assert res.status_code == 400
 
 
-def test_post_api_user_phone_too_short(client: FlaskClient):
+def test_post_user_phone_too_short(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "firstName": "John",
         "lastName": "Smith",

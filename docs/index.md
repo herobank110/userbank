@@ -13,7 +13,7 @@
 Retrieves IDs of all current users.
 
 The request body may be left empty. The response if the database query
-succeeds is has status code 200 and an `application/json` body matching
+succeeds has status code 200 and an `application/json` body matching
 the schema below:
 ```typescript
 {
@@ -85,10 +85,9 @@ Note that all fields are optional. However to pass validation at least
 one field must be defined. All present fields are otherwise validated
 against the same criteria as the [POST /api/user](#post-apiuser) route.
 
-The response has a status code 200 and no body if successful. In case of
-validation failure (including `<id>` not being a positive integer) a
-status code of 400 is set. In case of database error the status code is
-500.
+The response has a status code 200 if successful. In case of validation
+failure (including `<id>` not being a positive integer) a status code of
+400 is set. In case of database error the status code is 500.
 
 ### DELETE /api/user/\<id\>
 
@@ -96,7 +95,7 @@ Deletes a particular user.
 
 The requested `<id>` must be a positive integer, indicating the ID of
 the user record to delete. If the record was successfully removed the
-response has status code 200 and no body.
+response has status code 200.
 
 If the `<id>` is not a positive integer the response has status code
 400 and no body. If there was a database error, such as no user by that

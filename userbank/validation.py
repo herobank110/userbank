@@ -48,9 +48,9 @@ def is_valid_post_user(req: Request) -> bool:
 def make_post_user(req: Request):
     return (is_valid_post_user(req)
             and NewUserRecord(req.json.get('firstName'),
-                         req.json.get('lastName'),
-                         req.json.get('email'),
-                         req.json.get('phoneNum'))) or None
+                              req.json.get('lastName'),
+                              req.json.get('email'),
+                              req.json.get('phoneNum'))) or None
 
 
 def make_user_id(id_: str):

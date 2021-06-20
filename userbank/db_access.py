@@ -12,7 +12,7 @@ def _query(format: str, *args: Union[str, int, float]):
     """
     try:
         conn = db_connection()
-        with conn.cursor() as cur:
+        with conn, conn.cursor() as cur:
             cur.execute(format, args)
     except:
         return False

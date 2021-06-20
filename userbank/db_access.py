@@ -1,6 +1,6 @@
 from typing import List, Union
 from userbank import db_connection
-from userbank.model import UserRecord, PostUser
+from userbank.model import UserRecord, NewUserRecord
 
 
 def _query(query: str, *args: Union[str, int, float]):
@@ -57,7 +57,7 @@ def get_user_by_id(id_: int):
                           rows[0][4].strip())
 
 
-def add_user(user: PostUser):
+def add_user(user: NewUserRecord):
     """Create a new user record.
 
     :param user: Data of user to create. ID is automatically generated.

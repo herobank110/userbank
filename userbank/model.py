@@ -2,7 +2,7 @@ from userbank.utils.struct import ctor
 
 
 @ctor.init_list
-class PostUser:
+class NewUserRecord:
     """User details to be added to database.
     """
     first_name = ""

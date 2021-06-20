@@ -1,5 +1,6 @@
 from userbank.db_access import add_user, get_all_user_ids
 from flask import Response, jsonify, request
+from userbank import app
 from userbank.validation import make_post_user
 
 

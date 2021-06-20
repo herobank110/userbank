@@ -25,11 +25,10 @@ def post_api_user():
     try:
         conn = db_connection()
         with conn.cursor() as cur:
-            cur.execute("Insert into users "
-                        "(first_name, last_name, email, phone_num) "
-                        "values (%s, %s, %s, %s)",
-                        user.first_name, user.last_name, user.email,
-                        user.phone_num)
+            cur.execute(
+                "Insert into users (first_name, last_name, email, phone_num) "
+                "values (%s, %s, %s, %s);",
+                (user.first_name, user.last_name, user.email, user.phone_num))
     except:
         return Response(None, 500)
     return Response(None, 200)

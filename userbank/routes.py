@@ -1,3 +1,4 @@
+from userbank.db_access import add_user
 from flask import Response, jsonify, request
 from userbank import app, db_connection
 from userbank.validation import make_post_user
@@ -21,13 +22,6 @@ def get_api_user():
 def post_api_user():
     if not (user := make_post_user(request)):
         return Response("validation failure", 400)
-    try:
-        conn = db_connection()
-        with conn.cursor() as cur:
-            cur.execute(
-                "Insert into users (first_name, last_name, email, phone_num) "
-                "values (%s, %s, %s, %s);",
-                (user.first_name, user.last_name, user.email, user.phone_num))
-    except:
+    if not add_user(user):
         return Response("database error", 500)
     return Response(None, 200)

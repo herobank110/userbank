@@ -1,4 +1,4 @@
-from userbank.db_access import add_user, get_all_user_ids, get_user_by_id
+from userbank.db_access import add_user, delete_user, get_all_user_ids, get_user_by_id
 from flask import Response, jsonify, request
 from userbank import app
 from userbank.validation import make_post_user, make_user_id
@@ -37,3 +37,12 @@ def get_api_user_id(id_: str):
     })
     res.status_code = 200
     return res
+
+
+@app.route('/api/user/<id_>', methods=['DELETE'])
+def delete_api_user_id(id_: str):
+    if not (id_int := make_user_id(id_)):
+        return Response('validation failure', 400)
+    if not delete_user(id_int):
+        return Response('database error', 500)
+    return Response(None, 200)

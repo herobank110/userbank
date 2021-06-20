@@ -6,7 +6,7 @@ from userbank.model import UserRecord, NewUserRecord
 def _query(query: str, *args: Union[str, int, float]):
     """Internal implementation for database queries.
 
-    :param query: Format string, may contain %s, %d etc.
+    :param query: Format string, may contain %s.
     :param args: Values for placeholders in `query`, if any.
     :return: Whether the query was successful.
     """
@@ -22,7 +22,7 @@ def _query(query: str, *args: Union[str, int, float]):
 def _query_fetch(query: str, *args: Union[str, int, float]):
     """Database query that retrieves rows.
 
-    :param query: Format string, may contain %s, %d etc.
+    :param query: Format string, may contain %s.
     :param args: Values for placeholders in `query`, if any.
     :return: Rows from the database, otherwise None.
     """
@@ -66,3 +66,12 @@ def add_user(user: NewUserRecord):
     return _query("Insert into users (first_name, last_name, email, phone_num) "
                   "values (%s, %s, %s, %s);",
                   user.first_name, user.last_name, user.email, user.phone_num)
+
+
+def delete_user(id_: int):
+    """Delete a user record.
+
+    :param id_: ID of the user to delete.
+    :return: Whether the deletion was successful.
+    """
+    return _query("Delete from users where id = %s;", id_)

@@ -67,7 +67,8 @@ def make_user_id(id_: str):
         return
 
 
-def make_update_user_record(id_: int, req: Request) -> Union[UpdateUserRecord, None]:
+def make_update_user_record(id_: int, req: Request
+                            ) -> Union[UpdateUserRecord, None]:
     # Impossible to return int since id_int is only allowed to be
     # positive, non-zero or None, so if falsy will not be int.
     return ((id_int := make_user_id(id_))

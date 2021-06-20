@@ -54,7 +54,7 @@ def get_user_by_id(id_: int):
                             "from users where id = %s;",
                             id_):
         # Zero length array is falsy.
-        return PostUser(*rows[0])
+        return PostUser(*(col.strip() for col in rows[0]))
 
 
 def add_user(user: PostUser):

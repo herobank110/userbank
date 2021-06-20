@@ -4,6 +4,9 @@ services:
         build:
             context: .
             dockerfile: docker/app_main.Dockerfile
+        networks:
+            usernet:
+                ipv4_address: "172.10.10.1"
         ports:
             - 3001:3001
         volumes:
@@ -18,7 +21,17 @@ services:
         build:
             context: .
             dockerfile: docker/db.Dockerfile
+        networks:
+            usernet:
+                ipv4_address: "172.10.10.2"
         ports:
             - 5432:5432
         volumes:
             - ./build/db:/var/lib/postgresql/data
+
+networks:
+    usernet:
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.10.10.0/16

@@ -1,7 +1,9 @@
-from userbank.db_access import add_user, delete_user, get_all_user_ids, get_user_by_id, update_user
+from userbank.db_access import (add_user, delete_user, get_all_user_ids,
+                                get_user_by_id, update_user)
 from flask import Response, jsonify, request
 from userbank import app
-from userbank.validation import make_new_user_record, make_update_user_record, make_user_id
+from userbank.validation import (make_new_user_record, make_update_user_record,
+                                 make_user_id)
 
 
 @app.route('/api/user')

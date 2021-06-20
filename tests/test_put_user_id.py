@@ -35,8 +35,7 @@ def test_put_user_last_name_empty(client: FlaskClient):
 
 
 def test_put_user_email_wrong_pattern(client: FlaskClient):
-    res: Response = client.put('/api/user/1',
-                               json={"email": "johnsmithgmail.com"})
+    res: Response = client.put('/api/user/1', json={"email": "johnsmithgmail.com"})
     assert res.status_code == 400
 
 

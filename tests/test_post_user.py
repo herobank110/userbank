@@ -12,6 +12,11 @@ def test_post_user_valid(client: FlaskClient):
     assert res.status_code == 200
 
 
+def test_post_user_no_body(client: FlaskClient):
+    res: Response = client.post('/api/user')
+    assert res.status_code == 400
+
+
 def test_post_user_missing_field(client: FlaskClient):
     res: Response = client.post('/api/user', json={
         "lastName": "Smith",

@@ -1,4 +1,5 @@
 import re
+from typing import Union
 from flask.wrappers import Request
 from userbank.model import NewUserRecord, UpdateUserRecord
 
@@ -66,7 +67,9 @@ def make_user_id(id_: str):
         return
 
 
-def make_update_user_record(id_: int, req: Request):
+def make_update_user_record(id_: int, req: Request) -> Union[UpdateUserRecord, None]:
+    # Impossible to return int since id_int is only allowed to be
+    # positive, non-zero or None, so if falsy will not be int.
     return ((id_int := make_user_id(id_))
             and is_valid_put_user(req)
             and UpdateUserRecord(id_int,

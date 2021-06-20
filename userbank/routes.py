@@ -21,7 +21,7 @@ def get_api_user():
 @app.route('/api/user', methods=["POST"])
 def post_api_user():
     if not (user := make_post_user(request)):
-        return Response(None, 400)
+        return Response("validation failure", 400)
     try:
         conn = db_connection()
         with conn.cursor() as cur:
@@ -30,7 +30,7 @@ def post_api_user():
                 "values (%s, %s, %s, %s);",
                 (user.first_name, user.last_name, user.email, user.phone_num))
     except:
-        return Response(None, 500)
+        return Response("database error", 500)
     return Response(None, 200)
 
 # @app.route('/api/user/<id>')

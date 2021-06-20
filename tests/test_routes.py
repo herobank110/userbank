@@ -1,0 +1,15 @@
+"""
+All tests will be done in an isolated flask test client but the live
+database will be used.
+"""
+
+from flask.testing import FlaskClient
+from flask.wrappers import Response
+
+
+def test_get_api_user(client: FlaskClient):
+    res: Response = client.get('/api/user')
+    assert res.status_code == 200
+    assert res.is_json
+    assert len(res.json) == 1
+    assert type(res.json['users']) == list

@@ -1,7 +1,7 @@
-from userbank.db_access import add_user, get_all_user_ids
+from userbank.db_access import add_user, get_all_user_ids, get_user_by_id
 from flask import Response, jsonify, request
 from userbank import app
-from userbank.validation import make_post_user
+from userbank.validation import make_post_user, make_user_id
 
 
 @app.route('/api/user')
@@ -24,13 +24,15 @@ def post_api_user():
 
 @app.route('/api/user/<id_>')
 def get_api_user_id(id_: str):
-    if not id_.isnumeric():
+    if not (id_int := make_user_id(id_)):
         return Response('validation failure', 400)
+    if not (user := get_user_by_id(id_int)):
+        return Response('database error', 500)
     res: Response = jsonify({
-        "firstName": "John",
-        "lastName": "Smith",
-        "email": "johnsmith@gmail.com",
-        "phoneNum": "01234567890"
+        "firstName": user.first_name,
+        "lastName": user.last_name,
+        "email": user.email,
+        "phoneNum": user.phone_num
     })
     res.status_code = 200
     return res

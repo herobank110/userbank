@@ -50,4 +50,16 @@ def make_post_user(req: Request):
             and PostUser(req.json.get('firstName'),
                          req.json.get('lastName'),
                          req.json.get('email'),
-                         req.json.get('phoneNum')))
+                         req.json.get('phoneNum'))) or None
+
+
+def make_user_id(id_: str):
+    """:returns: Integer ID if valid.
+    """
+    try:
+        id_int = int(id_)
+        # Only positive integers allowed.
+        if id_int > 0:
+            return id_int
+    except:
+        return

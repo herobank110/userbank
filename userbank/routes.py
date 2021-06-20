@@ -20,3 +20,17 @@ def post_api_user():
     if not add_user(user):
         return Response('database error', 500)
     return Response(None, 200)
+
+
+@app.route('/api/user/<id_>')
+def get_api_user_id(id_: str):
+    if not id_.isnumeric():
+        return Response('validation failure', 400)
+    res: Response = jsonify({
+        "firstName": "John",
+        "lastName": "Smith",
+        "email": "johnsmith@gmail.com",
+        "phoneNum": "01234567890"
+    })
+    res.status_code = 200
+    return res

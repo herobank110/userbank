@@ -12,7 +12,7 @@ docker-compose up -d --build
 
 This will create three containers:
 - `app_main`: the back end Python HTTP based API
-- `app_test`: test for the back end API
+- `app_test`: tests for the back end API
 - `db`: PostgreSQL database for data persistence
 
 By default the API is served on port 3001. If needed this can can be
